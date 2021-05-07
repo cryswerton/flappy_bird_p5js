@@ -12,6 +12,22 @@ function setup() {
 function draw() {
   // put drawing code here
   background(0);
+  
+  for(var i = pipes.length-1; i >= 0; i--){
+    pipes[i].show();
+    pipes[i].update();
+
+    if( pipes[i].hits(bird) ){
+      console.log('Hit!')
+    }
+
+
+    if(pipes[i].offscreen()){
+      // As the pipes go off the screen they're going to be deleted.
+      pipes.splice(i, 1);
+    }
+  }
+
   bird.update();
   bird.show();
 
@@ -22,14 +38,6 @@ function draw() {
     pipes.push(new Pipe());
   }
 
-  for(var i = pipes.length-1; i >= 0; i--){
-    pipes[i].show();
-    pipes[i].update();
-    if(pipes[i].offscreen()){
-      // As the pipes go off the screen they're going to be deleted.
-      pipes.splice(i, 1);
-    }
-  }
 }
 
 function keyPressed(){
